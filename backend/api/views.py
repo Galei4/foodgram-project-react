@@ -1,33 +1,21 @@
-from api.permissions import IsAdminOrReadOnly, IsAuthorOrReadOnly
-from api.serializers import (
-    IngredientSerializer,
-    TagSerializer,
-    UserSerializer,
-    RecipeGetSerializer,
-    RecipePostSerializer,
-    SubscriptionSerializer,
-    FavoriteSerializer,
-    ShoppingListSerializer,
-)
-from django.db.models import Sum
-from recipies.models import (
-    Ingredient,
-    Tag,
-    Recipe,
-    Favorite,
-    ShoppingList,
-    IngredientAmount,
-)
 from api.filters import IngredientFilter, RecipeFilter
-from rest_framework import mixins, permissions, viewsets, status
-from api.utils import post_delete, ingredients_download
 from api.pagination import CustomPagination
-from djoser.views import UserViewSet
-from users.models import Subscription, User
-from rest_framework.decorators import action
-from rest_framework.response import Response
+from api.permissions import IsAdminOrReadOnly, IsAuthorOrReadOnly
+from api.serializers import (FavoriteSerializer, IngredientSerializer,
+                             RecipeGetSerializer, RecipePostSerializer,
+                             ShoppingListSerializer, SubscriptionSerializer,
+                             TagSerializer, UserSerializer)
+from api.utils import ingredients_download, post_delete
+from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
+from djoser.views import UserViewSet
+from recipies.models import (Favorite, Ingredient, IngredientAmount, Recipe,
+                             ShoppingList, Tag)
+from rest_framework import mixins, permissions, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from users.models import Subscription, User
 
 
 class CreateListDestroyGenericMixins(
@@ -67,11 +55,11 @@ class UserViewSet(UserViewSet):
         return self.get_paginated_response(
             SubscriptionSerializer(
                 self.paginate_queryset(
-                    User.objects.filter(following__user=request.user)
+                    User.objects.filter(following__user=request.user),
                 ),
                 many=True,
                 context={'request': request},
-            ).data
+            ).data,
         )
 
     @action(
@@ -85,7 +73,7 @@ class UserViewSet(UserViewSet):
 
         if request.method == 'POST':
             serializer = SubscriptionSerializer(
-                author, data=request.data, context={'request': request}
+                author, data=request.data, context={'request': request},
             )
             serializer.is_valid(raise_exception=True)
             Subscription.objects.create(user=user, author=author)
@@ -134,7 +122,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def download_shopping_cart(self, request):
         ingredients = (
             IngredientAmount.objects.filter(
-                recipe__shopping_list__user=self.request.user
+                recipe__shopping_list__user=self.request.user,
             )
             .values('ingredient__name', 'ingredient__measurement_unit')
             .order_by('ingredient__name')

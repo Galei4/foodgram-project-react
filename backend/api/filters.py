@@ -1,5 +1,5 @@
+from django_filters.rest_framework import CharFilter, FilterSet, filters
 from recipies.models import Ingredient, Recipe, Tag
-from django_filters.rest_framework import FilterSet, filters, CharFilter
 
 
 class IngredientFilter(FilterSet):
@@ -18,7 +18,7 @@ class RecipeFilter(FilterSet):
     )
     is_favorited = filters.BooleanFilter(method='get_is_favorite')
     is_in_shopping_cart = filters.BooleanFilter(
-        method='get_is_in_shopping_cart'
+        method='get_is_in_shopping_cart',
     )
 
     def get_is_favorite(self, queryset, name, value):

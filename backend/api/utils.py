@@ -1,9 +1,9 @@
-from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
-from rest_framework import status
-from recipies.models import Recipe
 from datetime import datetime
-from django.shortcuts import HttpResponse
+
+from django.shortcuts import HttpResponse, get_object_or_404
+from recipies.models import Recipe
+from rest_framework import status
+from rest_framework.response import Response
 
 
 def post_delete(add_serializer, model, request, recipe_id):
@@ -15,7 +15,7 @@ def post_delete(add_serializer, model, request, recipe_id):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     get_object_or_404(
-        model, user=user, recipe=get_object_or_404(Recipe, id=recipe_id)
+        model, user=user, recipe=get_object_or_404(Recipe, id=recipe_id),
     ).delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -31,12 +31,12 @@ def ingredients_download(self, request, ingredients):
             f'({ingredient["ingredient__measurement_unit"]})'
             f' - {ingredient["amount"]}'
             for ingredient in ingredients
-        ]
+        ],
     )
     shopping_list += f'\n\nFoodgram ({datetime.today():%Y})'
 
     response = HttpResponse(
-        shopping_list, content_type='text.txt; charset=utf-8'
+        shopping_list, content_type='text.txt; charset=utf-8',
     )
     response['Content-Disposition'] = f'attachment; filename={filename}'
     return response

@@ -3,7 +3,6 @@ from pathlib import Path
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from django.utils.dateparse import parse_datetime
 from recipies.models import Ingredient
 
 
@@ -17,10 +16,10 @@ class Command(BaseCommand):
         )
 
         self.import_csv_data(
-            csv_path, 'ingredients.csv', self.import_ingredients
+            csv_path, 'ingredients.csv', self.import_ingredients,
         )
         self.stdout.write(
-            self.style.SUCCESS('Ingredients imported successfully.')
+            self.style.SUCCESS('Ingredients imported successfully.'),
         )
 
     def import_csv_data(self, csv_path, filename, import_func):
