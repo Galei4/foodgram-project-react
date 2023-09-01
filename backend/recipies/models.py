@@ -9,7 +9,7 @@ TAG_SLUG_MAX_LENGTH = 200
 class Tag(models.Model):
     name = models.CharField(
         unique=True,
-        max_length=200,
+        max_length=TAG_SLUG_MAX_LENGTH,
         verbose_name='Название',
     )
     color = models.CharField(
