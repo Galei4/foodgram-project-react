@@ -120,23 +120,11 @@ DB_PORT=5432
 TOKEN=
 ```
 
-### Собираем контейнерыы:
+### Наполняем проект:
 
-Из папки infra/ разверните контейнеры при помощи docker-compose:
-```
-docker-compose up -d --build
-```
-Выполните миграции:
-```
-docker-compose exec backend python manage.py migrate
-```
 Создайте суперпользователя:
 ```
 winpty docker-compose exec backend python manage.py createsuperuser
-```
-Соберите статику:
-```
-docker-compose exec backend python manage.py collectstatic --no-input
 ```
 Наполните базу данных ингредиентами и тегами. Выполняйте команду из дериктории где находится файл manage.py:
 ```
