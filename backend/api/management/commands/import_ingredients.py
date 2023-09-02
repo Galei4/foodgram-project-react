@@ -3,7 +3,7 @@ from pathlib import Path
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from recipies.models import Ingredient
+from recipies.models import Ingredient, Tag
 
 
 class Command(BaseCommand):
@@ -21,6 +21,8 @@ class Command(BaseCommand):
         self.stdout.write(
             self.style.SUCCESS('Ingredients imported successfully.'),
         )
+        self.import_csv_data(csv_path, 'tags.csv', self.import_tags)
+        self.stdout.write(self.style.SUCCESS('Tags imported successfully.'))
 
     def import_csv_data(self, csv_path, filename, import_func):
         file_path = Path(csv_path) / filename
@@ -37,3 +39,14 @@ class Command(BaseCommand):
             for row in csv_data
         ]
         Ingredient.objects.bulk_create(ingredients)
+
+    def import_tags(self, csv_data):
+        tags = [
+            Tag(
+                name=row['name'],
+                color=row['color'],
+                slug=row['slug'],
+            )
+            for row in csv_data
+        ]
+        Tag.objects.bulk_create(tags)
