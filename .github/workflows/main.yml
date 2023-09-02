@@ -104,11 +104,6 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
-    - name: List Files
-      run: |
-        ls -l infra/
-        cat infra/.env
-      working-directory: ${{ github.workspace }}
     - name: Copy docker-compose.production.yml via ssh
       uses: appleboy/scp-action@master
       with:
