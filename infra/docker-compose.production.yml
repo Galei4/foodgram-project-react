@@ -26,7 +26,7 @@ services:
     volumes:
       - static:/static
   gateway:
-    image: galei4/kittygram_gateway
+    image: galei4/foodgram_gateway
     ports:
       - "9000:80"
     volumes:
