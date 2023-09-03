@@ -52,14 +52,16 @@ class Migration(migrations.Migration):
             model_name="ingredientamount",
             name="ingredient",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to="recipies.ingredient"
+                on_delete=django.db.models.deletion.CASCADE,
+                to="recipies.ingredient",
             ),
         ),
         migrations.AddField(
             model_name="ingredientamount",
             name="recipe",
             field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to="recipies.recipe"
+                on_delete=django.db.models.deletion.CASCADE,
+                to="recipies.recipe",
             ),
         ),
         migrations.AddField(

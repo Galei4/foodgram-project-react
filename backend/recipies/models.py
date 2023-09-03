@@ -56,7 +56,7 @@ class Ingredient(models.Model):
     class Meta:
         ordering = ('-name',)
         verbose_name = 'Ингридиент'
-        verbose_name_plural = 'Ингридиенты'
+        verbose_name_plural = 'Ингредиенты'
         default_related_name = 'ingredient'
 
     def __str__(self) -> str:
@@ -110,7 +110,11 @@ class Recipe(models.Model):
 
 
 class IngredientAmount(models.Model):
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(
+        Ingredient,
+        on_delete=models.CASCADE,
+        unique=True,
+    )
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     amount = models.SmallIntegerField(
         verbose_name='Количество',
@@ -135,6 +139,7 @@ class Favorite(models.Model):
         Recipe,
         on_delete=models.CASCADE,
         verbose_name='Рецепт',
+        unique=True,
     )
 
     class Meta:
@@ -149,10 +154,15 @@ class Favorite(models.Model):
 
 class ShoppingList(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name='Пользователь',
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Пользователь',
     )
     recipe = models.ForeignKey(
-        Recipe, on_delete=models.CASCADE, verbose_name='Рецепт',
+        Recipe,
+        on_delete=models.CASCADE,
+        verbose_name='Рецепт',
+        unique=True,
     )
 
     class Meta:

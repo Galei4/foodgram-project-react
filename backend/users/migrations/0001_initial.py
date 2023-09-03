@@ -61,7 +61,8 @@ class Migration(migrations.Migration):
                 (
                     "date_joined",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="date joined"
+                        default=django.utils.timezone.now,
+                        verbose_name="date joined",
                     ),
                 ),
                 (
@@ -70,7 +71,9 @@ class Migration(migrations.Migration):
                         max_length=150,
                         unique=True,
                         validators=[
-                            django.core.validators.RegexValidator("^[\\w.@+-]+\\Z")
+                            django.core.validators.RegexValidator(
+                                "^[\\w.@+-]+\\Z"
+                            )
                         ],
                     ),
                 ),

@@ -43,15 +43,20 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField(max_length=200, verbose_name="Название")),
+                (
+                    "name",
+                    models.CharField(max_length=200, verbose_name="Название"),
+                ),
                 (
                     "measurement_unit",
-                    models.CharField(max_length=200, verbose_name="Единицы измерения"),
+                    models.CharField(
+                        max_length=200, verbose_name="Единицы измерения"
+                    ),
                 ),
             ],
             options={
                 "verbose_name": "Ингридиент",
-                "verbose_name_plural": "Ингридиенты",
+                "verbose_name_plural": "Ингредиенты",
                 "ordering": ("-name",),
                 "default_related_name": "ingredient",
             },
@@ -71,7 +76,9 @@ class Migration(migrations.Migration):
                 (
                     "amount",
                     models.SmallIntegerField(
-                        validators=[django.core.validators.MinValueValidator(1)],
+                        validators=[
+                            django.core.validators.MinValueValidator(1)
+                        ],
                         verbose_name="Количество",
                     ),
                 ),
@@ -93,7 +100,10 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField(max_length=200, verbose_name="Название")),
+                (
+                    "name",
+                    models.CharField(max_length=200, verbose_name="Название"),
+                ),
                 (
                     "image",
                     models.ImageField(
@@ -105,7 +115,9 @@ class Migration(migrations.Migration):
                 (
                     "cooking_time",
                     models.SmallIntegerField(
-                        validators=[django.core.validators.MinValueValidator(1)],
+                        validators=[
+                            django.core.validators.MinValueValidator(1)
+                        ],
                         verbose_name="Время приготовления (в минутах)",
                     ),
                 ),

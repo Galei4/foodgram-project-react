@@ -1,17 +1,29 @@
 from api.filters import IngredientFilter, RecipeFilter
 from api.pagination import CustomPagination
 from api.permissions import IsAdminOrReadOnly, IsAuthorOrReadOnly
-from api.serializers import (FavoriteSerializer, IngredientSerializer,
-                             RecipeGetSerializer, RecipePostSerializer,
-                             ShoppingListSerializer, SubscriptionSerializer,
-                             TagSerializer, UserSerializer)
+from api.serializers import (
+    FavoriteSerializer,
+    IngredientSerializer,
+    RecipeGetSerializer,
+    RecipePostSerializer,
+    ShoppingListSerializer,
+    SubscriptionSerializer,
+    TagSerializer,
+    UserSerializer,
+)
 from api.utils import ingredients_download, post_delete
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from djoser.views import UserViewSet
-from recipies.models import (Favorite, Ingredient, IngredientAmount, Recipe,
-                             ShoppingList, Tag)
+from recipies.models import (
+    Favorite,
+    Ingredient,
+    IngredientAmount,
+    Recipe,
+    ShoppingList,
+    Tag,
+)
 from rest_framework import mixins, permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -73,15 +85,16 @@ class UserViewSet(UserViewSet):
 
         if request.method == 'POST':
             serializer = SubscriptionSerializer(
-                author, data=request.data, context={'request': request},
+                author,
+                data=request.data,
+                context={'request': request},
             )
             serializer.is_valid(raise_exception=True)
             Subscription.objects.create(user=user, author=author)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-        if request.method == 'DELETE':
-            get_object_or_404(Subscription, user=user, author=author).delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+        get_object_or_404(Subscription, user=user, author=author).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -126,6 +139,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
             )
             .values('ingredient__name', 'ingredient__measurement_unit')
             .order_by('ingredient__name')
-            .annotate(amount=Sum('amount'))
+            .annotate(quantity=Sum('amount'))
         )
         return ingredients_download(self, request, ingredients)
