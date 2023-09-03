@@ -1,13 +1,7 @@
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from drf_extra_fields.fields import Base64ImageField
-from recipies.models import (
-    Favorite,
-    Ingredient,
-    IngredientAmount,
-    Recipe,
-    ShoppingList,
-    Tag,
-)
+from recipies.models import (Favorite, Ingredient, IngredientAmount, Recipe,
+                             ShoppingList, Tag)
 from rest_framework import serializers, status
 from users.models import Subscription, User
 
@@ -292,7 +286,7 @@ class RecipePostSerializer(serializers.ModelSerializer):
             instance,
             context={'request': self.context.get('request')},
         ).data
-    
+
     @staticmethod
     def create_ingredients(recipe, ingredients):
         ingredient_list = []
