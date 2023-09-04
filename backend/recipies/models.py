@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
 from rest_framework import status
+
 from users.models import User
 
 TAG_SLUG_MAX_LENGTH = 200
@@ -55,7 +56,7 @@ class Ingredient(models.Model):
 
     class Meta:
         ordering = ('-name',)
-        verbose_name = 'Ингридиент'
+        verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
         default_related_name = 'ingredient'
 

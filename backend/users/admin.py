@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from recipies.admin import BaseAdmin
 from users.models import Subscription, User
 

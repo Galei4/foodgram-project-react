@@ -1,9 +1,10 @@
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from drf_extra_fields.fields import Base64ImageField
+from rest_framework import serializers, status
+
+from users.models import Subscription, User
 from recipies.models import (Favorite, Ingredient, IngredientAmount, Recipe,
                              ShoppingList, Tag)
-from rest_framework import serializers, status
-from users.models import Subscription, User
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -264,13 +265,13 @@ class RecipePostSerializer(serializers.ModelSerializer):
         for ingredient in ingredients:
             if ingredient['id'] in ingredients_list:
                 raise serializers.ValidationError(
-                    'Вы уже использовали данный игридиент',
+                    'Вы уже использовали данный ингредиент',
                 )
             ingredients_list.append(ingredient['id'])
 
             if int(ingredient['amount']) <= 0:
                 raise serializers.ValidationError(
-                    'Укажите верное количество ингридиента',
+                    'Укажите верное количество ингредиента',
                 )
         return ingredients
 

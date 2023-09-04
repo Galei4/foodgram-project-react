@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
-                "verbose_name": "Ингридиент",
+                "verbose_name": "Ингредиент",
                 "verbose_name_plural": "Ингредиенты",
                 "ordering": ("-name",),
                 "default_related_name": "ingredient",
