@@ -113,7 +113,6 @@ class IngredientAmount(models.Model):
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
-        unique=True,
     )
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     amount = models.SmallIntegerField(
@@ -124,6 +123,12 @@ class IngredientAmount(models.Model):
     class Meta:
         verbose_name = 'Жанры и произведения'
         default_related_name = 'ingredient_amount'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['ingredient', 'recipe'],
+                name='unique_ingredient_amount',
+            ),
+        ]
 
     def __str__(self):
         return f'{self.ingredient} {self.amount}'
@@ -139,7 +144,6 @@ class Favorite(models.Model):
         Recipe,
         on_delete=models.CASCADE,
         verbose_name='Рецепт',
-        unique=True,
     )
 
     class Meta:
@@ -147,6 +151,12 @@ class Favorite(models.Model):
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
         default_related_name = 'favorites'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'recipe'],
+                name='unique_favorite',
+            ),
+        ]
 
     def __str__(self):
         return f'{self.user.username} добавил в избранное {self.recipe.name}'
@@ -162,7 +172,6 @@ class ShoppingList(models.Model):
         Recipe,
         on_delete=models.CASCADE,
         verbose_name='Рецепт',
-        unique=True,
     )
 
     class Meta:
@@ -170,6 +179,12 @@ class ShoppingList(models.Model):
         verbose_name = 'Список покупок'
         verbose_name_plural = 'Списки покупок'
         default_related_name = 'shopping_list'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'recipe'],
+                name='unique_shopping_list',
+            ),
+        ]
 
     def __str__(self):
         return f'{self.user.username} добавил в корзину' f'{self.recipe.name}'
