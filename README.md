@@ -1,18 +1,18 @@
 
-### Опиание проекта.
-Сайт Foodgram, «Продуктовый помощник». Это онлайн-сервис и API для него. Сервис на котором пользователи будут публиковать рецепты, добавлять чужие рецепты в избранное и подписываться на публикации других авторов. Пользователям сайта также будет доступен сервис «Список покупок». Он позволит создавать список продуктов, которые нужно купить для приготовления выбранных блюд.
+### Project Description
 
-Foodgram - позволяет:
+Foodgram – Your Grocery Assistant is an online service with an accompanying API. It allows users to publish recipes, add others’ recipes to favorites, and subscribe to authors. Users can also create a shopping list of ingredients needed to cook selected recipes.
 
-- Просматривать все рецепты
-- Подписываться на авторов
-- Фильровать рецепты по тэгам
-- Добавлять рецепты в избранное
-- Добавлять рецепты в список покупок
-- Создавать, удалять и редактировать собственные рецепты
-- Скачивать список покупок в виде txt файла
+Foodgram allows users to:
+	•	Browse all recipes
+	•	Subscribe to authors
+	•	Filter recipes by tags
+	•	Add recipes to favorites
+	•	Add recipes to the shopping list
+	•	Create, delete, and edit personal recipes
+	•	Download the shopping list as a .txt file
 
-## Проект доступен по ссылкам:
+## Project is available at:
 
 ```
 - http://158.160.31.98:9000/
@@ -20,87 +20,87 @@ Foodgram - позволяет:
 - https://foodgramgaleev.hopto.org/
 ```
 
-## Учетная запись администратора:
+## Admin Account:
 
 ```
-- логин: user
-- почта: user@user.ru 
-- пароль: qwerW345
+- Username: user  
+- Email: user@user.ru  
+- Password: qwerW345
 ```
 
-## Учетная запись пользователя:
+User Account:
 
 ```
-- логин: malay
-- почта: test2@yandex.ru 
-- пароль: qwerw345
+- Username: malay  
+- Email: test2@yandex.ru  
+- Password: qwerw345
 ```
-## Инструкции по установке
-***- Склонируйте репозиторий:***
+## Installation Instructions
+***- Clone the repository:***
 ```
 git clone git@github.com:Galei4/foodgram-project-react.git
 ```
 
-***- Установите и активируйте виртуальное окружение:***
+***- Create and activate a virtual environment:***
 ```
 python3 -m venv venv
 ```
-***- Зайдите в папку backend'a***
+***- Navigate to the backend folder:***
 ```
 cd backend
 ```
  
-***- Установите зависимости для работы приложения из файла requirements.txt:***
+***- Install dependencies from requirements.txt:***
 ```
 pip install -r requirements.txt
 ```
 
-***- Примените миграции:***
+***- Apply database migrations:***
 ```
 python3 manage.py migrate
 ```
 
-***- В папке с файлом manage.py выполните команду для запуска локально:***
+***- To run the app locally, execute in the folder with manage.py:***
 ```
 python3 manage.py runserver
 ```
-***- Локально Документация доступна по адресу:***
+***- Local API documentation is available at:***
 ```
 http://127.0.0.1/api/docs/ или http://localhost/api/docs
 ```
-## Деплой на сервер:  
-Подключитесь к своему серверу:
+## Deployment on Server:
+Connect to your server:
 ```
 ssh username@server_ip
 ```
 
-Обновите существующие пакеты:
+Update packages:
 ```
 sudo apt update
 ```
 
-Установите докер:
+Install Docker:
 ```
 sudo apt install docker.io
 ```
 
-Загрузите файл Docker Compose:
+Download Docker Compose:
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
-Установите пермишены для запуска Docker Compose:
+Grant permission to run Docker Compose:
 ```
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-Создайте необходимые папки
+Create the necessary directories:
 ```
 mkdir infra
 mkdir docs
 ```
 
-Перенесите необходимые файлы на сервер
+Transfer the required files to the server:
 ```
 scp docker-compose.yml username@server_ip:/home/username/infra/
 scp nginx.conf username@server_ip:/home/username/infra/
@@ -109,7 +109,7 @@ scp openapi-schema.yml username@server_ip:/home/username/docs/
 scp redoc.html username@server_ip:/home/username/docs/
 ```
 
-Пример файла .env
+Example .env file:
 ```
 DB_ENGINE=вид БД
 DB_NAME=имя БД
@@ -120,17 +120,17 @@ DB_PORT=5432
 TOKEN=
 ```
 
-### Наполняем проект:
+### Populating the Project:
 
-Создайте суперпользователя:
+Create a superuser:
 ```
 winpty docker-compose exec backend python manage.py createsuperuser
 ```
-Наполните базу данных ингредиентами и тегами. Выполняйте команду из дериктории где находится файл manage.py:
+Populate the database with ingredients and tags (run from the directory containing manage.py):
 ```
 docker-compose exec backend python manage.py import_ingredients
 
 ```
 
-## Автор проекта:  
-Линар Галеев [```Galei4```](https://github.com/Galei4)  
+## Project Author:
+Linar Galeev [```Galei4```](https://github.com/Galei4)  
